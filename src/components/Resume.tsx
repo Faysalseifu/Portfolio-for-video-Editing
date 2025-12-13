@@ -97,23 +97,23 @@ interface TimelineItemProps {
 
 const Timeline = ({ items }: { items: TimelineItemProps[] }) => {
   return (
-    <div className="relative pl-6">
-      <div className="absolute left-1 top-0 bottom-0 w-px bg-gradient-to-b from-cinema-accent via-white/40 to-cinema-accent/20" />
-      <div className="space-y-8">
+    <div className="relative pl-8">
+      <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-cinema-accent via-white/40 to-cinema-accent/20" />
+      <div className="space-y-10">
         {items.map((item, idx) => (
           <div key={item.id} className="relative">
-            <div className="absolute -left-[10px] top-1 w-4 h-4 rounded-full border-2 border-cinema-accent bg-gray-900" />
-            <div className="flex flex-wrap items-center gap-3 mb-2">
+            <div className="absolute -left-[12px] top-1 w-3.5 h-3.5 rounded-full border-2 border-cinema-accent bg-gray-900" />
+            <div className="flex flex-wrap items-center gap-3 mb-3">
               <h4 className="text-xl font-semibold">{item.title}</h4>
               <span className="text-sm text-gray-400">{item.period}</span>
             </div>
             <p className="text-sm font-semibold text-gray-200 mb-3">{item.subtitle}</p>
-            <ul className="list-disc list-outside ml-5 space-y-2 text-gray-300 text-sm leading-relaxed">
+            <ul className="list-disc list-outside ml-6 space-y-2.5 text-gray-300 text-sm leading-relaxed">
               {item.points.map((point, i) => (
                 <li key={`${item.id}-${i}`}>{point}</li>
               ))}
             </ul>
-            {idx !== items.length - 1 && <div className="mt-6" />}
+            {idx !== items.length - 1 && <div className="mt-8" />}
           </div>
         ))}
       </div>
