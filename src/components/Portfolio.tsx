@@ -8,6 +8,7 @@ const categories = ['All', 'TV Shows', 'Promotional', 'Social Media', 'Commercia
 const Portfolio: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [playlist, setPlaylist] = useState<Project[]>([]);
 
   useEffect(() => {
     if (selectedProject) {
@@ -24,6 +25,16 @@ const Portfolio: React.FC = () => {
     activeCategory === 'All'
       ? PROJECTS
       : PROJECTS.filter((p) => p.category === activeCategory);
+
+  const openProject = (project: Project) => {
+    setSelectedProject(project);
+    // Build a small playlist of up to 4 items from current category (or All)
+    const base = activeCategory === 'All' ? PROJECTS : PROJECTS.filter((p) => p.category === activeCategory);
+    const items = base
+      .filter((p) => p.id !== project.id)
+      .slice(0, 4);
+    setPlaylist([project, ...items]);
+  };
 
   return (
     <section id="portfolio" className="py-24 bg-gray-50 dark:bg-cinema-900 transition-colors duration-300">
@@ -53,7 +64,7 @@ const Portfolio: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} onClick={() => setSelectedProject(project)} />
+            <ProjectCard key={project.id} project={project} onClick={() => openProject(project)} />
           ))}
         </div>
       </div>
@@ -65,7 +76,7 @@ const Portfolio: React.FC = () => {
             onClick={() => setSelectedProject(null)}
           ></div>
 
-          <div className="relative w-full max-w-5xl bg-white dark:bg-black rounded-xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 flex flex-col max-h-[90vh]">
+          <div className="relative w-full max-w-6xl bg-white dark:bg-black rounded-xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 flex flex-col md:flex-row max-h-[90vh]">
             <button
               onClick={() => setSelectedProject(null)}
               className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-cinema-accent rounded-full text-white hover:text-black transition-colors"
@@ -73,7 +84,7 @@ const Portfolio: React.FC = () => {
               <X size={24} />
             </button>
 
-            <div className="aspect-video w-full bg-black shrink-0">
+            <div className="aspect-video w-full bg-black shrink-0 md:flex-1">
               <iframe
                 src={`${selectedProject.videoUrl}?autoplay=1&rel=0&modestbranding=1`}
                 title={selectedProject.title}
@@ -83,7 +94,7 @@ const Portfolio: React.FC = () => {
               ></iframe>
             </div>
 
-            <div className="p-6 bg-white dark:bg-cinema-800 overflow-y-auto transition-colors duration-300">
+            <div className="p-6 bg-white dark:bg-cinema-800 overflow-y-auto transition-colors duration-300 md:w-[360px] border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-800">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{selectedProject.title}</h3>
                 <span className="text-xs font-bold text-cinema-accent px-2 py-1 bg-gray-100 dark:bg-cinema-900 rounded uppercase tracking-wider">
@@ -101,6 +112,34 @@ const Portfolio: React.FC = () => {
                   </span>
                 ))}
               </div>
+
+              {/* Playlist */}
+              {playlist.length > 1 && (
+                <div className="mt-6">
+                  <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3">Playlist</h4>
+                  <div className="space-y-3">
+                    {playlist.slice(0, 4).map((p) => (
+                      <button
+                        key={p.id}
+                        onClick={() => setSelectedProject(p)}
+                        className={`w-full flex items-center gap-3 p-2 rounded-lg border transition-colors ${
+                          p.id === selectedProject.id
+                            ? 'border-cinema-accent bg-cinema-accent/10 text-gray-900 dark:text-white'
+                            : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-cinema-900 text-gray-700 dark:text-gray-300 hover:border-cinema-accent'
+                        }`}
+                      >
+                        <div className="w-16 h-10 rounded overflow-hidden shrink-0">
+                          <img src={p.thumbnail} alt={p.title} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1 text-left">
+                          <p className="text-sm font-semibold line-clamp-1">{p.title}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">{p.client}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
