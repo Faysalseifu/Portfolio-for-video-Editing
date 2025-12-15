@@ -17,13 +17,13 @@ import thumb6 from '../assets/7.png';
 export const PROJECTS: Project[] = [
   {
     id: 1,
-    title: 'Africa TV Documentary Series',
+    title: 'Africa TV-Shows Series',
     category: 'TV Shows',
     thumbnail: thumb1,
-    videoUrl: 'https://www.youtube.com/embed/LXb3EKWsInQ',
+    videoUrl: 'https://drive.google.com/file/d/1SHloUL30NHICOHxGbPinrvnY2IlyeLpi/preview',
     client: 'Africa TV',
     description: 'Lead editor for a 4-part documentary series focusing on urban development.',
-    tools: ['Premiere Pro', 'After Effects'],
+    tools: ['Premiere Pro', 'After Effects','Cap cut'],
   },
   {
     id: 2,
@@ -107,21 +107,21 @@ export const SERVICES: Service[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
-    name: 'Sarah Jenkins',
+    name: 'Abdulaziz Mudawi',
     role: 'Producer, Africa TV',
     quote:
-      "Faysi has an incredible eye for detail. He doesn't just cut footage; he builds a narrative that keeps viewers hooked.",
+      "Faysal has an incredible eye for detail. He doesn't just cut footage; he builds a narrative that keeps viewers hooked.",
   },
   {
     id: 2,
-    name: 'Dawit Kebede',
-    role: 'Marketing Director',
+    name: 'Abdulahkim Nasir',
+    role: 'Marketing Director,MSL',
     quote: 'Fast, reliable, and extremely creative. The promotional video he made for us doubled our engagement rates.',
   },
   {
     id: 3,
-    name: 'Elena Ross',
-    role: 'Filmmaker',
+    name: 'Aymen muhammedzayn',
+    role: 'Socialmedia manager, Africa TV',
     quote: 'His color grading transformed my flat footage into a cinematic masterpiece. Highly recommended.',
   },
 ];

@@ -85,13 +85,20 @@ const Portfolio: React.FC = () => {
             </button>
 
             <div className="aspect-video w-full bg-black shrink-0 md:flex-1">
-              <iframe
-                src={`${selectedProject.videoUrl}?autoplay=1&rel=0&modestbranding=1`}
-                title={selectedProject.title}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+              {(() => {
+                const url = selectedProject.videoUrl;
+                const isDrive = url.includes('drive.google.com');
+                const embedUrl = isDrive ? url : `${url}?autoplay=1&rel=0&modestbranding=1`;
+                return (
+                  <iframe
+                    src={embedUrl}
+                    title={selectedProject.title}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                );
+              })()}
             </div>
 
             <div className="p-6 bg-white dark:bg-cinema-800 overflow-y-auto transition-colors duration-300 md:w-[360px] border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-800">
