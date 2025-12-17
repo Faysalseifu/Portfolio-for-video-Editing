@@ -1,7 +1,7 @@
 export interface Project {
 	id: number;
 	title: string;
-	category: 'TV Shows' | 'Promotional' | 'Social Media' | 'Sports' | 'Commercials';
+	category: 'TV Shows' | 'Promotional' | 'Social Media' | 'Sports' | 'Commercials' | 'Podcast';
 	thumbnail: string;
 	videoUrl: string;
 	client: string;
