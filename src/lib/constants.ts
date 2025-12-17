@@ -13,6 +13,10 @@ import thumb3 from '../assets/4.png';
 import thumb4 from '../assets/5.png';
 import thumb5 from '../assets/6.png';
 import thumb6 from '../assets/7.png';
+import thumb7 from '../assets/8.png';
+import thumb8 from '../assets/9.png';
+import thumb9 from '../assets/10.png';
+import thumb10 from '../assets/11.png';
 
 export const PROJECTS: Project[] = [
   {
@@ -73,6 +77,46 @@ export const PROJECTS: Project[] = [
     videoUrl: 'https://www.youtube.com/embed/ysz5S6P_8-k',
     client: 'Bank of Abyssinia',
     description: 'Professional corporate communication video combining interviews and b-roll.',
+    tools: ['Premiere Pro', 'Audition'],
+  },
+  {
+    id: 7,
+    title: 'Indehsab Podcast - Episode 8',
+    category: 'Podcast',
+    thumbnail: thumb7,
+    videoUrl: 'https://www.youtube.com/embed/LGGqWkstB8A',
+    client: 'Africa TV',
+    description: 'Podcast episode edit with polished audio mix and pacing for broadcast.',
+    tools: ['Premiere Pro', 'Audition'],
+  },
+  {
+    id: 8,
+    title: 'Indehsab Podcast - Episode 9',
+    category: 'Podcast',
+    thumbnail: thumb8,
+    videoUrl: 'https://www.youtube.com/embed/fxvkRz7pn8w',
+    client: 'Africa TV',
+    description: 'Podcast episode cut with dialogue clean-up and supporting visuals.',
+    tools: ['Premiere Pro', 'Audition'],
+  },
+  {
+    id: 9,
+    title: 'Indehsab Podcast - Episode 2',
+    category: 'Podcast',
+    thumbnail: thumb9,
+    videoUrl: 'https://www.youtube.com/embed/2PjJOTaDuYo',
+    client: 'Africa TV',
+    description: 'Podcast storytelling focused on clear narration and rhythm.',
+    tools: ['Premiere Pro', 'Audition'],
+  },
+  {
+    id: 10,
+    title: 'Indehsab Podcast - Episode 4',
+    category: 'Podcast',
+    thumbnail: thumb10,
+    videoUrl: 'https://www.youtube.com/embed/FjBIf0-Tdgg',
+    client: 'Africa TV',
+    description: 'Podcast mix balancing interviews, beds, and transitions.',
     tools: ['Premiere Pro', 'Audition'],
   },
 ];
