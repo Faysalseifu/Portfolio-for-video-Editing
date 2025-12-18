@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Play, X } from 'lucide-react';
 import { PROJECTS } from '../lib/constants';
 import { Project } from '../types';
 
-const categories = ['All', 'TV Shows', 'Promotional', 'Social Media', 'Commercials'];
-
 const Portfolio: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [playlist, setPlaylist] = useState<Project[]>([]);
+
+  const groupedCategories = useMemo(() => {
+    const order = ['Podcast', 'TV Shows', 'Commercials', 'Promotional', 'Social Media', 'Sports'];
+    return order
+      .map((name) => ({
+        name,
+        items: PROJECTS.filter((p) => p.category === name).slice(0, 4),
+      }))
+      .filter((group) => group.items.length > 0);
+  }, []);
 
   useEffect(() => {
     if (selectedProject) {
@@ -21,18 +28,9 @@ const Portfolio: React.FC = () => {
     };
   }, [selectedProject]);
 
-  const filteredProjects =
-    activeCategory === 'All'
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.category === activeCategory);
-
-  const openProject = (project: Project) => {
+  const openProject = (project: Project, groupItems: Project[]) => {
     setSelectedProject(project);
-    // Build a small playlist of up to 4 items from current category (or All)
-    const base = activeCategory === 'All' ? PROJECTS : PROJECTS.filter((p) => p.category === activeCategory);
-    const items = base
-      .filter((p) => p.id !== project.id)
-      .slice(0, 4);
+    const items = groupItems.filter((p) => p.id !== project.id).slice(0, 3);
     setPlaylist([project, ...items]);
   };
 
@@ -42,30 +40,36 @@ const Portfolio: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-gray-200 dark:border-gray-800 pb-6 transition-colors duration-300">
           <div>
             <h2 className="font-display text-4xl font-bold text-gray-900 dark:text-white mb-2">Selected Work</h2>
-            <p className="text-gray-600 dark:text-gray-400">A curated collection of my best edits.</p>
-          </div>
-
-          <div className="flex gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 md:pb-0 hide-scrollbar w-full md:w-auto">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors border ${
-                  activeCategory === cat
-                    ? 'bg-cinema-900 text-white dark:bg-white dark:text-cinema-900 border-transparent'
-                    : 'bg-white dark:bg-cinema-800 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:text-cinema-900 dark:hover:text-white'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+            <p className="text-gray-600 dark:text-gray-400">Each folder shows one cover video; click it to open the playlist of up to four projects.</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} onClick={() => openProject(project)} />
-          ))}
+          {groupedCategories.map((group) => {
+            const cover = group.items[0];
+            const remaining = group.items.length - 1;
+            return (
+              <div key={group.name} className="bg-white dark:bg-cinema-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col">
+                <div className="flex items-center justify-between px-5 py-4 bg-gray-50 dark:bg-cinema-900 border-b border-gray-200 dark:border-gray-800">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-cinema-accent/20 text-cinema-900 dark:text-cinema-900 flex items-center justify-center font-bold">{group.name.charAt(0)}</div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white">{group.name} Folder</h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{group.items.length} project(s) · showing up to 4</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-5 flex-1">
+                  <ProjectCard
+                    project={cover}
+                    onClick={() => openProject(cover, group.items)}
+                    meta={remaining > 0 ? `+${remaining} more in this folder` : undefined}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -88,7 +92,9 @@ const Portfolio: React.FC = () => {
               {(() => {
                 const url = selectedProject.videoUrl;
                 const isDrive = url.includes('drive.google.com');
-                const embedUrl = isDrive ? url : `${url}?autoplay=1&rel=0&modestbranding=1`;
+                const hasQuery = url.includes('?');
+                const separator = hasQuery ? '&' : '?';
+                const embedUrl = isDrive ? url : `${url}${separator}autoplay=1&rel=0&modestbranding=1`;
                 return (
                   <iframe
                     src={embedUrl}
@@ -158,9 +164,10 @@ const Portfolio: React.FC = () => {
 interface ProjectCardProps {
   project: Project;
   onClick: () => void;
+  meta?: string;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, meta }) => {
   return (
     <div
       onClick={onClick}
@@ -182,6 +189,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
             {project.category}
           </span>
         </div>
+        {meta && (
+          <div className="absolute bottom-4 right-4">
+            <span className="px-3 py-1 bg-cinema-900 text-white text-xs font-semibold rounded-md shadow-md">
+              {meta}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="p-6">
