@@ -5,7 +5,7 @@ import {
   Instagram,
   Linkedin,
   Twitter,
-  Youtube,
+  Facebook,
   Calendar,
   Clock,
   DollarSign,
@@ -89,10 +89,10 @@ const Contact: React.FC = () => {
             <div className="mt-12">
               <p className="text-gray-500 text-sm font-bold uppercase mb-4">Connect</p>
               <div className="flex gap-4">
-                <SocialLink href="#" icon={<Instagram size={20} />} />
-                <SocialLink href="#" icon={<Linkedin size={20} />} />
-                <SocialLink href="#" icon={<Youtube size={20} />} />
-                <SocialLink href="#" icon={<Twitter size={20} />} />
+                <SocialLink href="https://twitter.com/SeifuFaysa65143" icon={<Twitter size={20} />} />
+                <SocialLink href="https://www.linkedin.com/in/faysal-seifu-038443297/" icon={<Linkedin size={20} />} />
+                <SocialLink href="https://instagram.com/faysiseifu" icon={<Instagram size={20} />} />
+                <SocialLink href="https://facebook.com/faysiseifu" icon={<Facebook size={20} />} />
               </div>
             </div>
           </div>
