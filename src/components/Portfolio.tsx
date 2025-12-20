@@ -8,7 +8,7 @@ const Portfolio: React.FC = () => {
   const [playlist, setPlaylist] = useState<Project[]>([]);
 
   const groupedCategories = useMemo(() => {
-    const order = ['Podcast', 'TV Shows', 'Commercials', 'Promotional', 'Social Media', 'Sports'];
+    const order = ['Podcast', 'TV Shows', 'Commercials', 'Promotional', 'Social Media', 'Social Media Short Video'];
     return order
       .map((name) => ({
         name,
