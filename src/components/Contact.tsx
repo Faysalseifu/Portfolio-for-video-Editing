@@ -11,19 +11,42 @@ import {
   DollarSign,
   CheckCircle2,
   ArrowRight,
+  Send,
 } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('submitting');
-    setTimeout(() => {
+
+    const formEl = e.currentTarget;
+    const formData = new FormData(formEl);
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      projectType: formData.get('projectType'),
+      budget: formData.get('budget'),
+      deadline: formData.get('deadline'),
+      details: formData.get('details'),
+    };
+
+    try {
+      const resp = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!resp.ok) throw new Error('Failed');
       setStatus('success');
+      formEl.reset();
       setTimeout(() => setStatus('idle'), 3000);
-      alert("Thanks for your interest! I'll review your project details and get back to you within 24 hours.");
-    }, 1500);
+    } catch (err) {
+      console.error(err);
+      setStatus('idle');
+      alert('Sorry, sending failed. Please try again or email me directly.');
+    }
   };
 
   return (
@@ -93,6 +116,7 @@ const Contact: React.FC = () => {
                 <SocialLink href="https://www.linkedin.com/in/faysal-seifu-038443297/" icon={<Linkedin size={20} />} />
                 <SocialLink href="https://instagram.com/faysiseifu" icon={<Instagram size={20} />} />
                 <SocialLink href="https://facebook.com/faysiseifu" icon={<Facebook size={20} />} />
+                  <SocialLink href="https://t.me/Decisive_sword" icon={<Send size={20} />} />
               </div>
             </div>
           </div>
@@ -110,6 +134,7 @@ const Contact: React.FC = () => {
                   <input
                     type="text"
                     required
+                    name="name"
                     className="w-full bg-gray-50 dark:bg-cinema-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-cinema-accent transition-colors"
                     placeholder="Your Name"
                   />
@@ -119,6 +144,7 @@ const Contact: React.FC = () => {
                   <input
                     type="email"
                     required
+                    name="email"
                     className="w-full bg-gray-50 dark:bg-cinema-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-cinema-accent transition-colors"
                     placeholder="name@company.com"
                   />
@@ -127,7 +153,7 @@ const Contact: React.FC = () => {
 
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-gray-500 dark:text-gray-400">Project Type</label>
-                <select className="w-full bg-gray-50 dark:bg-cinema-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-cinema-accent transition-colors">
+                <select name="projectType" className="w-full bg-gray-50 dark:bg-cinema-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-cinema-accent transition-colors">
                   <option>TV Production / Documentary</option>
                   <option>Commercial / Ad Spot</option>
                   <option>Social Media (Reels/TikTok)</option>
@@ -142,7 +168,7 @@ const Contact: React.FC = () => {
                   <label className="text-xs font-bold uppercase text-gray-500 dark:text-gray-400">Estimated Budget</label>
                   <div className="relative">
                     <DollarSign className="absolute left-3 top-3 text-gray-400" size={18} />
-                    <select className="w-full pl-10 bg-gray-50 dark:bg-cinema-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-cinema-accent transition-colors">
+                    <select name="budget" className="w-full pl-10 bg-gray-50 dark:bg-cinema-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-cinema-accent transition-colors">
                       <option>Less than $500</option>
                       <option>$500 - $1,000</option>
                       <option>$1,000 - $5,000</option>
@@ -155,7 +181,7 @@ const Contact: React.FC = () => {
                   <label className="text-xs font-bold uppercase text-gray-500 dark:text-gray-400">Deadline</label>
                   <div className="relative">
                     <Clock className="absolute left-3 top-3 text-gray-400" size={18} />
-                    <select className="w-full pl-10 bg-gray-50 dark:bg-cinema-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-cinema-accent transition-colors">
+                    <select name="deadline" className="w-full pl-10 bg-gray-50 dark:bg-cinema-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-cinema-accent transition-colors">
                       <option>ASAP (Rush)</option>
                       <option>Within 1 week</option>
                       <option>Within 1 month</option>
@@ -170,6 +196,7 @@ const Contact: React.FC = () => {
                 <textarea
                   required
                   rows={4}
+                  name="details"
                   className="w-full bg-gray-50 dark:bg-cinema-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-cinema-accent transition-colors"
                   placeholder="Tell me about your vision, goals, and any reference videos..."
                 ></textarea>
