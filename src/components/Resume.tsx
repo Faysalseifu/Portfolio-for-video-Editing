@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, Briefcase, GraduationCap, Award } from 'lucide-react';
+import { Download, Briefcase, GraduationCap, Award, ChevronDown } from 'lucide-react';
 import { CERTIFICATIONS, EDUCATION, EXPERIENCES } from '../lib/constants';
 
 const Resume: React.FC = () => {
@@ -96,6 +96,14 @@ interface TimelineItemProps {
 }
 
 const Timeline = ({ items }: { items: TimelineItemProps[] }) => {
+  const [openIds, setOpenIds] = React.useState<number[]>([]);
+
+  const toggle = (id: number) => {
+    setOpenIds((prev) =>
+      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
+    );
+  };
+
   return (
     <div className="relative pl-8">
       <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-cinema-accent via-white/40 to-cinema-accent/20" />
@@ -108,11 +116,31 @@ const Timeline = ({ items }: { items: TimelineItemProps[] }) => {
               <span className="text-sm text-gray-400">{item.period}</span>
             </div>
             <p className="text-sm font-semibold text-gray-200 mb-3">{item.subtitle}</p>
-            <ul className="list-disc list-outside ml-6 space-y-2.5 text-gray-300 text-sm leading-relaxed">
-              {item.points.map((point, i) => (
-                <li key={`${item.id}-${i}`}>{point}</li>
-              ))}
-            </ul>
+            <button
+              type="button"
+              onClick={() => toggle(item.id)}
+              className="inline-flex items-center gap-2 text-cinema-accent text-sm font-semibold mb-2 hover:text-white transition-colors"
+              aria-expanded={openIds.includes(item.id)}
+              aria-controls={`timeline-points-${item.id}`}
+            >
+              <span>{openIds.includes(item.id) ? 'Hide details' : 'Show details'}</span>
+              <ChevronDown
+                size={16}
+                className={`transition-transform ${openIds.includes(item.id) ? 'rotate-180' : ''}`}
+              />
+            </button>
+            <div
+              id={`timeline-points-${item.id}`}
+              className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
+                openIds.includes(item.id) ? 'max-h-[480px] opacity-100' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <ul className="list-disc list-outside ml-6 space-y-2.5 text-gray-300 text-sm leading-relaxed">
+                {item.points.map((point, i) => (
+                  <li key={`${item.id}-${i}`}>{point}</li>
+                ))}
+              </ul>
+            </div>
             {idx !== items.length - 1 && <div className="mt-8" />}
           </div>
         ))}
