@@ -96,7 +96,7 @@ interface TimelineItemProps {
 }
 
 const Timeline = ({ items }: { items: TimelineItemProps[] }) => {
-  const [openIds, setOpenIds] = React.useState<number[]>([]);
+  const [openIds, setOpenIds] = React.useState<number[]>(() => items.map((item) => item.id));
 
   const toggle = (id: number) => {
     setOpenIds((prev) =>
