@@ -41,6 +41,29 @@ const Hero: React.FC = () => {
             Hire Me
           </a>
         </div>
+
+        {/* Software badges */}
+        <div className="mt-10">
+          <p className="text-gray-300 text-sm mb-4 tracking-wide animate-fade-in-up">Software I use</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white shadow-sm transition-transform hover:scale-105 animate-fade-in-up">
+              <span className="w-5 h-5 rounded-sm" style={{ backgroundColor: '#4B2C88' }} />
+              <span className="text-sm font-semibold">Premiere Pro</span>
+            </span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white shadow-sm transition-transform hover:scale-105 animate-fade-in-up">
+              <span className="w-5 h-5 rounded-sm" style={{ backgroundColor: '#7B51E6' }} />
+              <span className="text-sm font-semibold">After Effects</span>
+            </span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white shadow-sm transition-transform hover:scale-105 animate-fade-in-up">
+              <span className="w-5 h-5 rounded-sm" style={{ backgroundColor: '#00A3FF' }} />
+              <span className="text-sm font-semibold">Photoshop</span>
+            </span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white shadow-sm transition-transform hover:scale-105 animate-fade-in-up">
+              <span className="w-5 h-5 rounded-sm" style={{ backgroundColor: '#111827' }} />
+              <span className="text-sm font-semibold">CapCut</span>
+            </span>
+          </div>
+        </div>
       </div>
 
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/70">
