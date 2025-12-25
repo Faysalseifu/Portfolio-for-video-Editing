@@ -1,0 +1,56 @@
+/* Slow float and drift animations for hero icons */
+@keyframes float-slow {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes drift-slow {
+  0% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  100% { transform: translateX(-10px); }
+}
+
+.float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.drift-slow {
+  animation: drift-slow 14s ease-in-out infinite;
+}
+
+/* Additional drift directions for variety */
+@keyframes drift-left {
+  0% { transform: translateX(8px); }
+  50% { transform: translateX(-8px); }
+  100% { transform: translateX(8px); }
+}
+
+@keyframes drift-right {
+  0% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  100% { transform: translateX(-8px); }
+}
+
+@keyframes drift-diag-up {
+  0% { transform: translate(-8px, 6px); }
+  50% { transform: translate(8px, -6px); }
+  100% { transform: translate(-8px, 6px); }
+}
+
+@keyframes drift-diag-down {
+  0% { transform: translate(-8px, -6px); }
+  50% { transform: translate(8px, 6px); }
+  100% { transform: translate(-8px, -6px); }
+}
+
+.drift-left { animation: drift-left 12s ease-in-out infinite; }
+.drift-right { animation: drift-right 10s ease-in-out infinite; }
+.drift-diag-up { animation: drift-diag-up 14s ease-in-out infinite; }
+.drift-diag-down { animation: drift-diag-down 13s ease-in-out infinite; }
+
+/* Optional stagger helpers */
+.delay-0 { animation-delay: 0ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-600 { animation-delay: 600ms; }

@@ -425,27 +425,33 @@ export const SKILL_DATA: SkillData[] = [
   },
   {
     subject: 'Color Grading',
-    A: 85,
+    A: 95,
     fullMark: 100,
     description: 'Enhancing the mood and tone of footage using DaVinci Resolve and Lumetri.',
   },
   {
     subject: 'Motion Gfx',
-    A: 75,
+    A: 90,
     fullMark: 100,
     description: 'Creating dynamic text animations and lower thirds in After Effects.',
   },
   {
     subject: 'Sound Design',
-    A: 80,
+    A: 95,
     fullMark: 100,
     description: 'Layering SFX and mixing audio for an immersive experience.',
   },
   {
     subject: 'Pacing',
-    A: 90,
+    A: 100,
     fullMark: 100,
     description: 'Mastering the rhythm of the edit to evoke the right emotion.',
+  },
+  {
+    subject: 'Thumbnail Design',
+    A: 85,
+    fullMark: 100,
+    description: 'Designing eye-catching thumbnails optimized for CTR and brand consistency.',
   },
   {
     subject: 'Software',

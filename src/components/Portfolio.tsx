@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Play, X } from 'lucide-react';
+import { Play, X, Cloud } from 'lucide-react';
 import { PROJECTS } from '../lib/constants';
 import { Project } from '../types';
 
@@ -41,6 +41,17 @@ const Portfolio: React.FC = () => {
           <div>
             <h2 className="font-display text-4xl font-bold text-gray-900 dark:text-white mb-2">Selected Work</h2>
             <p className="text-gray-600 dark:text-gray-400">Each folder shows one cover video; click it to open the playlist of up to four projects.</p>
+            <div className="mt-4">
+              <a
+                href="https://drive.google.com/drive/folders/1wZdYntASj8kaWhJPdxpSkbQpfz6yYVGr?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-white/10 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-white hover:dark:bg-white/20 shadow-sm transition-colors"
+              >
+                <Cloud size={18} className="text-cinema-accent" />
+                <span className="text-sm font-semibold">See more on Google Drive</span>
+              </a>
+            </div>
           </div>
         </div>
 

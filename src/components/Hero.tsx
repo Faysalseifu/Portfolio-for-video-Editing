@@ -1,6 +1,11 @@
 import React from 'react';
 import { Play, ChevronDown } from 'lucide-react';
 import heroBg from '../assets/1.png';
+import '../styles/animations.css';
+import prIcon from '../assets/softwere icon/11.png';
+import psIcon from '../assets/softwere icon/12.png';
+import ccIcon from '../assets/softwere icon/13.png';
+import aeIcon from '../assets/softwere icon/14.png';
 
 const Hero: React.FC = () => {
   return (
@@ -42,26 +47,29 @@ const Hero: React.FC = () => {
           </a>
         </div>
 
-        {/* Software badges */}
+        {/* Software icons only with subtle motion */}
         <div className="mt-10">
-          <p className="text-gray-300 text-sm mb-4 tracking-wide animate-fade-in-up">Software I use</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white shadow-sm transition-transform hover:scale-105 animate-fade-in-up">
-              <span className="w-5 h-5 rounded-sm" style={{ backgroundColor: '#4B2C88' }} />
-              <span className="text-sm font-semibold">Premiere Pro</span>
-            </span>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white shadow-sm transition-transform hover:scale-105 animate-fade-in-up">
-              <span className="w-5 h-5 rounded-sm" style={{ backgroundColor: '#7B51E6' }} />
-              <span className="text-sm font-semibold">After Effects</span>
-            </span>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white shadow-sm transition-transform hover:scale-105 animate-fade-in-up">
-              <span className="w-5 h-5 rounded-sm" style={{ backgroundColor: '#00A3FF' }} />
-              <span className="text-sm font-semibold">Photoshop</span>
-            </span>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white shadow-sm transition-transform hover:scale-105 animate-fade-in-up">
-              <span className="w-5 h-5 rounded-sm" style={{ backgroundColor: '#111827' }} />
-              <span className="text-sm font-semibold">CapCut</span>
-            </span>
+          <div className="flex flex-wrap justify-center gap-6">
+            <img
+              src={prIcon}
+              alt="Premiere Pro"
+              className="float-slow drift-right delay-0 w-16 h-16 md:w-20 md:h-20 rounded-md shadow-xl transition-transform hover:scale-105"
+            />
+            <img
+              src={psIcon}
+              alt="Photoshop"
+              className="float-slow drift-left delay-200 w-16 h-16 md:w-20 md:h-20 rounded-md shadow-xl transition-transform hover:scale-105"
+            />
+            <img
+              src={ccIcon}
+              alt="CapCut"
+              className="float-slow drift-diag-up delay-400 w-16 h-16 md:w-20 md:h-20 rounded-md shadow-xl transition-transform hover:scale-105"
+            />
+            <img
+              src={aeIcon}
+              alt="After Effects"
+              className="float-slow drift-diag-down delay-600 w-16 h-16 md:w-20 md:h-20 rounded-md shadow-xl transition-transform hover:scale-105"
+            />
           </div>
         </div>
       </div>
